@@ -1,0 +1,136 @@
+img.play{
+    max-width: 95%;
+    max-height: 90%;
+    border: darkgray;
+    border-style: solid;
+    border-width: 1px;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.portrait {
+    height: 300px;
+    width: 32%;
+}
+
+.landscape {
+    height: 300px;
+    width: 32%;
+}
+
+#leftPanel {
+    left:0;
+    width:33%;
+    height:100%;
+    align-content: center;
+
+    border-top-style: solid;
+    border-top-width: 5px;
+    border-right-style:solid;
+    border-right-width:5px;
+}
+
+#centerPanel {
+    left:33%;
+    width: 33%;
+    height:100%;
+
+    border-top-style: solid;
+    border-top-width: 5px;
+}
+
+#rightPanel {
+    left:66%;
+    width: 33%;
+    height:100%;
+    align-content: center;
+
+    border-top-style: solid;
+    border-top-width: 5px;
+    border-left-style:solid;
+    border-left-width:5px;
+}
+
+.panel {
+    left:0;
+    height:370px;
+    position: relative;
+    vertical-align: middle;
+}
+
+p {
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+h3 {
+    width: 96%;
+    margin-top: 1px;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+h4 {
+    margin-top: 1px;
+    margin-bottom: 10px;
+    margin-right: 2%;
+}
+
+#loading {
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+p.bottomMargin{
+    margin-top: 1px;
+    margin-bottom: 15px;
+}
+
+p.topMargin {
+    margin-top: 15px;
+    margin-bottom: 1px;
+}
+
+div {
+    color: midnightblue;
+    border-color: darkgray;
+}
+
+table {
+    width: 95%;
+    display: table;
+    margin: 10px;
+    border-style: outset;
+}
+
+.row-1, .row-2, .row-3{
+    width: 96%;
+    min-height: 25px;
+}
+
+.cell-1, .cell-2, .cell-3 {
+    margin: 2%;
+    width: 33%;
+    padding-left: 10px;
+    display: table-cell;
+}
+
+.cell-3 {
+    padding-left: 0px;
+    text-align: center;
+    border-top-style: ridge;
+}
+
+.noBorderBottom{
+    margin-bottom: 0;
+    border-bottom-style: none;
+}
+
+#errorDetailsTable {
+    border-top-style: none;
+    margin-top: 0;
+}

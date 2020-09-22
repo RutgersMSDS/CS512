@@ -59,15 +59,21 @@ def process_files():
     if request.method == 'POST':
 
         # read labels and images from training set (IDX file format)
-        trainlabels=decode_idx1_ubyte("mnist_training_data/train-labels.idx1-ubyte")
-        trainimages=decode_idx3_ubyte("mnist_training_data/train-images.idx3-ubyte")
-
+        trainlabels = decode_idx1_ubyte("mnist_training_data/train-labels.idx1-ubyte")
+        trainimages = decode_idx3_ubyte("mnist_training_data/train-images.idx3-ubyte")
+        testlabels = decode_idx1_ubyte("mnist_test_labels/t10k-labels.idx1-ubyte")
 
         # get uploaded test images (PNG file format)
         uploaded_files = request.files.getlist('files')
 
         # output dictionary for uploaded images
-        dict_test_image_predictions = {}
+        result = {}
+        result["hits"] = 0
+        result["misses"] = 0
+        result["processed"] = 0
+        result["outputString"] = ""
+        result["failed_records"] = []
+        result["calculation_time"] = 0
 
         for file in uploaded_files:
             itest = np.array(Image.open(file))
@@ -81,17 +87,28 @@ def process_files():
             # k = 3
             classfier = KnnClassifier(1, trainimages, trainlabels, itest, 3)
             predict = classfier.test(1)
-            dict_test_image_predictions[file.filename] = predict[0]
-            val += str(predict[0]) + " "
+
+            record = {}
+            record["filename"] = file.filename
+            record["predicted"] = int(predict["value"])
+            record["expected"] = int(testlabels[int(file.filename.split('.')[0])])
+
+            if(record["predicted"] == record["expected"]):
+                result["hits"] += 1
+            else:
+                result["misses"] += 1
+                result["failed_records"].append(record)
+
+            result["processed"] +=1
+
+            result["outputString"] += str(int(predict["value"])) + " "
+            result["calculation_time"] += round(predict["calculation_time"], 5)
 
             print('----------------------------------------------------------------------')
 
-    #return str(len(uploaded_files)) + ' images classified successfully.\n' + 'Images vs Digits -> \n' + \
-    return val
+    result["calculation_time"] = str(round(predict["calculation_time"], 5)) + " ms"
+    return json.dumps(result)
 
-@app.route('/30.gif')
-def upload_loadingscreen():
-    return send_file('templates/30.gif', mimetype='image/gif')
 
 if __name__ == '__main__':
    app.run(host='0.0.0.0', port=8080)
